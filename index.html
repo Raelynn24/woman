@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卫生巾成本计算器</title>
+    <style>
+        body {
+            background-color: #ffb6c1; /* 粉红色背景 */
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #ffffff;
+            text-align: center;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin: 30px 0;
+        }
+
+        .calculator {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ffb6c1;
+            border-radius: 8px;
+            font-size: 1.2rem;
+        }
+
+        button {
+            background: #ff69b4;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #ff1493;
+        }
+
+        .result-box {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: #ff69b4;
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>我们要为卫生巾打工多久</h1>
+        
+        <div class="calculator">
+            <div class="input-group">
+                <label>你的时薪（元/小时）</label>
+                <input type="number" id="hourly-wage" placeholder="请输入数字">
+            </div>
+
+            <button onclick="calculate()">立即计算</button>
+
+            <div class="result-box" id="result" style="display: none;">
+                <p>1. 终身花费：<span class="highlight" id="total-cost">0</span> 元</p>
+                <p>2. 你需要为卫生巾打工 <span class="highlight" id="work-hours">0</span> 小时！</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            // 获取输入值
+            const hourlyWage = parseFloat(document.getElementById('hourly-wage').value);
+            
+            // 验证输入
+            if (!hourlyWage || hourlyWage <= 0) {
+                alert("请输入有效的时薪");
+                return;
+            }
+
+            // 计算参数
+            const monthlyCost = 50; // 每月花费
+            const years = 38;      // 经期年数（12-50岁）
+            
+            // 计算结果
+            const totalCost = monthlyCost * 12 * years;
+            const workHours = totalCost / hourlyWage;
+
+            // 显示结果
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('total-cost').textContent = 
+                totalCost.toLocaleString();
+            document.getElementById('work-hours').textContent = 
+                Math.round(workHours);
+        }
+    </script>
+</body>
+</html>
